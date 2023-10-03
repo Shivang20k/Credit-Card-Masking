@@ -23,22 +23,26 @@ public class UserController {
     @Autowired
     UserRepository userRepository;
 
+    // http://localhost:8080/api/users
     @GetMapping("/users")
     private ResponseEntity<List<User>> getAllUsers() {
         return new ResponseEntity<>(userRepository.findAll(), HttpStatus.OK);
     }
 
+    // http://localhost:8080/api/user/1
     @GetMapping("/user/{id}")
     private ResponseEntity<User> getUserByID(@PathVariable long id) {
         return new ResponseEntity<>(userRepository.findById(id).orElse(null), HttpStatus.OK);
     }
 
+    // http://localhost:8080/api/user
     @PostMapping("/user")
     private ResponseEntity<String> createUser(@RequestBody User user) {
         userRepository.save(user);
         return new ResponseEntity<>("Created successfully", HttpStatus.OK);
     }
 
+    // http://localhost:8080/api/user/update/1
     @PutMapping("/user/update/{id}")
     private ResponseEntity<User> updateUser(@PathVariable long id, @RequestBody User user) {
         User existingUser = userRepository.findById(id).orElse(null);
@@ -50,6 +54,7 @@ public class UserController {
         return new ResponseEntity<>(existingUser, HttpStatus.OK);
     }
 
+    // http://localhost:8080/api/user/1
     @DeleteMapping("/user/{id}")
     private ResponseEntity<String> deleteUser(@PathVariable long id) {
         userRepository.deleteById(id);
