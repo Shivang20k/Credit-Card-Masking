@@ -21,6 +21,6 @@ public class User {
     private String phone;
     @Column(name = "email")
     private String email;
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     private Account account;
 }
